@@ -1,10 +1,11 @@
-import React from 'react';
-import './App.css';
+import React from 'react'
+import './App.css'
 import './scss/app.scss'
-import {Header} from "./components/Header";
-import {Categories} from "./components/Categories";
-import {Sort} from "./components/Sort";
-import {PizzaBlock} from "./components/PizzaBlock";
+import {Header} from "./components/Header"
+import {Categories} from "./components/Categories"
+import {Sort} from "./components/Sort"
+import {PizzaBlock} from "./components/PizzaBlock"
+import pizzas from './db.json'
 
 function App() {
     return (
@@ -19,22 +20,18 @@ function App() {
                         </div>
                         <h2 className="content__title">Все пиццы</h2>
                         <div className="content__items">
-                            <PizzaBlock
-                                title="Мясная"
-                                price="200"
-                            />
-                            <PizzaBlock
-                                title="Гавайская"
-                                price="300"
-                            />
-                            <PizzaBlock
-                                title="Грибная"
-                                price="400"
-                            />
-                            <PizzaBlock
-                                title="Деревенская"
-                                price="500"
-                            />
+                            {pizzas.pizzas.map((el, index) => {
+                                return (
+                                    <PizzaBlock
+                                        key={el.id}
+                                        title={el.name}
+                                        price={el.price}
+                                        imageUrl={el.imageUrl}
+                                        sizes={el.sizes}
+                                        types={el.types}
+                                    />
+                                )
+                            })}
                         </div>
                     </div>
                 </div>

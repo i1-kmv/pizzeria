@@ -1,34 +1,68 @@
-import React, {FC} from "react";
+import React, {FC, useState} from "react";
 
 type PizzaBlockPropsType = {
     title: string
-    price: string
+    price: number
+    imageUrl: string
+    sizes: Array<number>
+    types: Array<number>
 }
 
 
-export const PizzaBlock:FC<PizzaBlockPropsType> = ({title, price}) => {
+export const PizzaBlock:FC<PizzaBlockPropsType> = ({title, price, imageUrl, sizes, types}) => {
+
+    const [pizzaCount, setPizzaCount] = useState<number>(0)
+    const [activeSize, setActiveSize] = useState<number>(0)
+    const [activeType, setActiveType] = useState<number>(0)
+    const typesName = ['Тонкое', 'Традиционное']
+
+    const setPizzaCountHandler = () => {
+        setPizzaCount(pizzaCount + 1)
+    }
+
     return (
         <div className="pizza-block">
             <img
                 className="pizza-block__image"
-                src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
+                src={imageUrl}
                 alt="Pizza"
             />
             <h4 className="pizza-block__title">{title}</h4>
             <div className="pizza-block__selector">
                 <ul>
-                    <li className="active">тонкое</li>
-                    <li>традиционное</li>
+                    {typesName.map((el, i) => {
+                        return (
+                            i < types.length &&
+                            <li
+                                key={`${el} + ${i}`}
+                                className={activeType === i ? "active" : ''}
+                                onClick={() => setActiveType(i)}
+                            >
+                                {el}
+                            </li>
+                        )
+                    })}
                 </ul>
                 <ul>
-                    <li className="active">26 см.</li>
-                    <li>30 см.</li>
-                    <li>40 см.</li>
+                    {sizes.map((el,i) => {
+                        return (
+                            <li
+                                key={`${el}+${i}`}
+                                className={activeSize === i ? 'active' : ''}
+                                onClick={() => setActiveSize(i)}
+                            >
+                                {el} см.
+                            </li>
+                        )
+                    })}
                 </ul>
             </div>
             <div className="pizza-block__bottom">
                 <div className="pizza-block__price">от {price} ₽</div>
-                <div className="button button--outline button--add">
+                <div
+                    className="button button--outline button--add"
+                    onClick={setPizzaCountHandler}
+                >
                     <svg
                         width="12"
                         height="12"
@@ -42,7 +76,7 @@ export const PizzaBlock:FC<PizzaBlockPropsType> = ({title, price}) => {
                         />
                     </svg>
                     <span>Добавить</span>
-                    <i>2</i>
+                    <i>{pizzaCount}</i>
                 </div>
             </div>
         </div>
