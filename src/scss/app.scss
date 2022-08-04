@@ -28,7 +28,7 @@ body {
   &__items {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
   }
 
   &__top {
@@ -256,12 +256,8 @@ body {
           }
         }
 
-        svg {
+        img {
           margin-right: 12px;
-          path {
-            fill: transparent;
-            stroke-width: 2;
-          }
         }
       }
 
@@ -308,6 +304,15 @@ body {
       margin: 0 auto;
       font-weight: 600;
       font-size: 18px;
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .content {
+    &__top {
+      flex-direction: column;
+      align-items: center;
     }
   }
 }
