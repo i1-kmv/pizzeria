@@ -1,4 +1,4 @@
-import React, {FC, useState} from "react";
+import React, {FC, useState} from "react"
 
 type PizzaBlockPropsType = {
     title: string
@@ -9,7 +9,7 @@ type PizzaBlockPropsType = {
 }
 
 
-export const PizzaBlock:FC<PizzaBlockPropsType> = ({title, price, imageUrl, sizes, types}) => {
+export const PizzaBlock: FC<PizzaBlockPropsType> = ({title, price, imageUrl, sizes, types}) => {
 
     const [pizzaCount, setPizzaCount] = useState<number>(0)
     const [activeSize, setActiveSize] = useState<number>(0)
@@ -44,7 +44,7 @@ export const PizzaBlock:FC<PizzaBlockPropsType> = ({title, price, imageUrl, size
                     })}
                 </ul>
                 <ul>
-                    {sizes.map((el,i) => {
+                    {sizes.map((el, i) => {
                         return (
                             <li
                                 key={`${el}+${i}`}
