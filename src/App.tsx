@@ -1,13 +1,35 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import './App.css'
 import './scss/app.scss'
 import {Header} from "./components/Header"
 import {Categories} from "./components/Categories"
 import {Sort} from "./components/Sort"
 import {PizzaBlock} from "./components/PizzaBlock"
-import pizzas from './db.json'
+
+type PizzaType = {
+    id:string
+    imageUrl: string
+    name: string
+    types: Array<number>
+    sizes: Array<number>
+    price: number
+    category: number
+    rating: number
+}
+
 
 function App() {
+
+    let [pizzas, setPizzas] = useState<Array<PizzaType>>([])
+
+    useEffect(() => {
+        fetch('https://62ebb45a55d2bd170e744c03.mockapi.io/items').then((res) => {
+            return res.json()
+        }).then((json) => {
+           setPizzas(json)
+        })
+    }, [])
+
     return (
         <div className="App">
             <div className="wrapper">
@@ -20,7 +42,7 @@ function App() {
                         </div>
                         <h2 className="content__title">Все пиццы</h2>
                         <div className="content__items">
-                            {pizzas.pizzas.map((el, index) => {
+                            {pizzas.map((el, index) => {
                                 return (
                                     <PizzaBlock
                                         key={el.id}
