@@ -1,11 +1,14 @@
-import React, {FC, useState} from "react";
+import React, {FC, useState} from "react"
+
+type CategoriesPropsType = {
+    category: number
+    setCategory: (val: number) => void
+}
 
 
-export const Categories: FC = () => {
+export const Categories: FC<CategoriesPropsType> = ({category, setCategory}) => {
 
-    const [activeFilter, setActiveFilter] = useState<number>(0)
-
-    const categoties = ['Все', 'Мясные', 'Вегетарианские', 'Грибные', 'Закрытые']
+    const categoties = ['Все', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые']
 
     return (
         <div className="categories">
@@ -14,8 +17,8 @@ export const Categories: FC = () => {
                     categoties.map((el, index) => {
                         return (
                             <li
-                                className={activeFilter === index ? 'active' : ''}
-                                onClick={() => setActiveFilter(index)}
+                                className={category === index ? 'active' : ''}
+                                onClick={() => setCategory(index)}
                                 key={el + index}
                             >
                                 {el}

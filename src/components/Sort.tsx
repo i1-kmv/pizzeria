@@ -1,14 +1,19 @@
-import React, {FC, useState} from "react";
+import React, {FC, useState} from "react"
+
+type SortPropsType = {
+    sortValue: number
+    setSortValue: (val: number) => void
+}
 
 
-export const Sort:FC = () => {
+export const Sort:FC<SortPropsType> = ({sortValue, setSortValue}) => {
 
     const sortValues = ['популярности', 'цене', 'алфавиту']
 
     const [isPopupVisible, setIsPopupVisible] = useState<boolean>(false)
-    const [sortValue, setSortValue] = useState<string>('популярности')
 
-    const onSortElemClickHandler = (el:string) => {
+
+    const onSortElemClickHandler = (el:number) => {
         setSortValue(el)
         setIsPopupVisible(false)
     }
@@ -29,7 +34,7 @@ export const Sort:FC = () => {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span onClick={() => setIsPopupVisible(true)}>{sortValue}</span>
+                <span onClick={() => setIsPopupVisible(true)}>{sortValues[sortValue]}</span>
             </div>
             {
                 isPopupVisible &&
@@ -39,8 +44,8 @@ export const Sort:FC = () => {
                             return (
                                 <li
                                     key={`${el} + ${i}`}
-                                    className={el === sortValue ? 'active' : ''}
-                                    onClick={() => onSortElemClickHandler(el)}
+                                    className={el === sortValues[i] ? 'active' : ''}
+                                    onClick={() => onSortElemClickHandler(i)}
                                 >
                                     {el}
                                 </li>
