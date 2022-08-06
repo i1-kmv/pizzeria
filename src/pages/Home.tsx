@@ -2,9 +2,11 @@ import {Categories} from "../components/Categories"
 import {Sort} from "../components/Sort"
 import MyLoader from "../components/MyLoader"
 import {PizzaBlock} from "../components/PizzaBlock"
-import React, {createContext, FC, useContext, useEffect, useState} from "react"
+import React, {createContext, FC, useEffect, useState} from "react"
 import {Search} from "../components/Search"
 import {Pagination} from "../components/Pagination"
+import {useSelector} from "react-redux";
+import {RootState} from "../redux/store";
 
 
 type PizzaType = {
@@ -28,17 +30,19 @@ export const SearchContext = createContext<ContextType>({filterValue: '', setFil
 
 export const Home: FC = () => {
 
-    const [filterValue,setFilterValue] = useState<string>('')
+    const category = useSelector<RootState>(state => state.filter.category )
 
+
+    const [filterValue,setFilterValue] = useState<string>('')
     let [pizzas, setPizzas] = useState<Array<PizzaType>>([])
     let [isLoading, setIsLoading] = useState<boolean>(true)
-    let [category, setCategory] = useState<number>(0)
     let [currentPage, setCurrentPage] = useState<number>(1)
     const [sortValue, setSortValue] = useState<number>(0)
 
     const sortResponseValues = ['rating', 'price', 'title']
+    const categotiesTitleValues = ['Все', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые']
     const sortResponseValue = sortResponseValues[sortValue]
-    const respCategory = category ? `category=${category}` : ''
+    const respCategory = category ? `&category=${category}` : ''
     const respFilter = filterValue ? `&search=${filterValue}` : ''
 
 
@@ -51,7 +55,6 @@ export const Home: FC = () => {
             setIsLoading(false)
             setPizzas(json)
         })
-        console.log(filterValue)
     }, [category, sortResponseValue, filterValue, currentPage])
 
     let skeletonArr = [...new Array(8)]
@@ -59,10 +62,7 @@ export const Home: FC = () => {
     return (
         <>
             <div className="content__top">
-                <Categories
-                    category={category}
-                    setCategory={setCategory}
-                />
+                <Categories/>
                 <Sort
                     sortValue={sortValue}
                     setSortValue={setSortValue}
@@ -71,7 +71,7 @@ export const Home: FC = () => {
             <SearchContext.Provider value={{filterValue, setFilterValue}}>
                 <Search/>
             </SearchContext.Provider>
-            <h2 className="content__title">Все пиццы</h2>
+            <h2 className="content__title">{categotiesTitleValues[Number(category)]} пиццы</h2>
             <div className="content__items">
                 {isLoading ? skeletonArr.map((_, index) => <MyLoader key={index.toString()}/>) :
                     pizzas.map((el, index) => {

@@ -1,12 +1,13 @@
-import React, {FC, useState} from "react"
-
-type CategoriesPropsType = {
-    category: number
-    setCategory: (val: number) => void
-}
+import React, {FC} from "react"
+import {RootState} from "../redux/store"
+import {filterSlice} from "../redux/slices/filterSlice"
+import {useDispatch, useSelector} from "react-redux"
 
 
-export const Categories: FC<CategoriesPropsType> = ({category, setCategory}) => {
+export const Categories: FC = () => {
+
+    const dispatch = useDispatch()
+    const category = useSelector<RootState>(state => state.filter.category )
 
     const categoties = ['Все', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые']
 
@@ -18,7 +19,7 @@ export const Categories: FC<CategoriesPropsType> = ({category, setCategory}) => 
                         return (
                             <li
                                 className={category === index ? 'active' : ''}
-                                onClick={() => setCategory(index)}
+                                onClick={() => dispatch(filterSlice.actions.setCategory(index))}
                                 key={el + index}
                             >
                                 {el}
