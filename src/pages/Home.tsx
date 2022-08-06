@@ -5,8 +5,8 @@ import {PizzaBlock} from "../components/PizzaBlock"
 import React, {createContext, FC, useEffect, useState} from "react"
 import {Search} from "../components/Search"
 import {Pagination} from "../components/Pagination"
-import {useSelector} from "react-redux";
-import {RootState} from "../redux/store";
+import {useSelector} from "react-redux"
+import {RootState} from "../redux/store"
 
 
 type PizzaType = {
@@ -31,9 +31,8 @@ export const SearchContext = createContext<ContextType>({filterValue: '', setFil
 export const Home: FC = () => {
 
     const category = useSelector<RootState>(state => state.filter.category )
+    const filterValue = useSelector<RootState>(state => state.filter.filterValue )
 
-
-    const [filterValue,setFilterValue] = useState<string>('')
     let [pizzas, setPizzas] = useState<Array<PizzaType>>([])
     let [isLoading, setIsLoading] = useState<boolean>(true)
     let [currentPage, setCurrentPage] = useState<number>(1)
@@ -68,9 +67,7 @@ export const Home: FC = () => {
                     setSortValue={setSortValue}
                 />
             </div>
-            <SearchContext.Provider value={{filterValue, setFilterValue}}>
-                <Search/>
-            </SearchContext.Provider>
+            <Search/>
             <h2 className="content__title">{categotiesTitleValues[Number(category)]} пиццы</h2>
             <div className="content__items">
                 {isLoading ? skeletonArr.map((_, index) => <MyLoader key={index.toString()}/>) :

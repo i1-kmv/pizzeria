@@ -1,10 +1,13 @@
-import React, {FC, useContext} from "react"
-import {SearchContext} from "../pages/Home"
+import React, {FC} from "react"
+import {useDispatch, useSelector} from "react-redux"
+import {RootState} from "../redux/store"
+import {setFilter} from "../redux/slices/filterSlice"
 
 
 export const Search:FC= () => {
 
-    const {filterValue, setFilterValue} = useContext(SearchContext)
+    const dispatch = useDispatch()
+    const filterValue:any = useSelector<RootState>(state => state.filter.filterValue )
 
     return (
         <div className="content__search">
@@ -12,7 +15,7 @@ export const Search:FC= () => {
             <input
                 className="content__search-area"
                 value={filterValue}
-                onChange={(e) => setFilterValue(e.currentTarget.value)}
+                onChange={(e) => dispatch(setFilter(e.currentTarget.value))}
                 type="text"
             />
         </div>

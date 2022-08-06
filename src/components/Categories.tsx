@@ -1,6 +1,6 @@
 import React, {FC} from "react"
 import {RootState} from "../redux/store"
-import {filterSlice} from "../redux/slices/filterSlice"
+import {setCategory} from "../redux/slices/filterSlice"
 import {useDispatch, useSelector} from "react-redux"
 
 
@@ -19,7 +19,7 @@ export const Categories: FC = () => {
                         return (
                             <li
                                 className={category === index ? 'active' : ''}
-                                onClick={() => dispatch(filterSlice.actions.setCategory(index))}
+                                onClick={() => dispatch(setCategory(index))}
                                 key={el + index}
                             >
                                 {el}
