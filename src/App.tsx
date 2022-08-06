@@ -8,8 +8,8 @@ import {NotFound} from "./pages/NotFound"
 import {Cart} from "./pages/Cart"
 
 
-
 function App() {
+
     return (
         <div className="App">
             <div className="wrapper">
