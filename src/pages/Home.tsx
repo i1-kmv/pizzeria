@@ -7,6 +7,7 @@ import {Search} from "../components/Search"
 import {Pagination} from "../components/Pagination"
 import {useSelector} from "react-redux"
 import {RootState} from "../redux/store"
+import axios from "axios"
 
 
 type PizzaType = {
@@ -32,10 +33,10 @@ export const Home: FC = () => {
 
     const category = useSelector<RootState>(state => state.filter.category )
     const filterValue = useSelector<RootState>(state => state.filter.filterValue )
+    const currentPage = useSelector<RootState>(state => state.filter.pageCount )
 
     let [pizzas, setPizzas] = useState<Array<PizzaType>>([])
     let [isLoading, setIsLoading] = useState<boolean>(true)
-    let [currentPage, setCurrentPage] = useState<number>(1)
     const [sortValue, setSortValue] = useState<number>(0)
 
     const sortResponseValues = ['rating', 'price', 'title']
@@ -47,12 +48,12 @@ export const Home: FC = () => {
 
     useEffect(() => {
         setIsLoading(true)
-        fetch(`https://62ebb45a55d2bd170e744c03.mockapi.io/items?limit=4&page=${currentPage}${respCategory}&sortBy=${sortResponseValue}&order=desc${respFilter}`)
+        axios.get<Array<PizzaType>>(`https://62ebb45a55d2bd170e744c03.mockapi.io/items?limit=4&page=${currentPage}${respCategory}&sortBy=${sortResponseValue}&order=desc${respFilter}`)
             .then((res) => {
-                return res.json()
-            }).then((json) => {
+                return res
+            }).then((res) => {
             setIsLoading(false)
-            setPizzas(json)
+            setPizzas(res.data)
         })
     }, [category, sortResponseValue, filterValue, currentPage])
 
@@ -84,7 +85,9 @@ export const Home: FC = () => {
                         )
                     })}
             </div>
-            <Pagination onChange={setCurrentPage}/>
+            {pizzas.length ?
+            <Pagination/> : null
+            }
         </>
     )
 }
