@@ -8,9 +8,10 @@ import {Pagination} from "../components/Pagination"
 import {useSelector} from "react-redux"
 import {RootState} from "../redux/store"
 import axios from "axios"
+import {useNavigate} from "react-router-dom"
 
 
-type PizzaType = {
+export type PizzaType = {
     id: string
     imageUrl: string
     name: string
@@ -31,20 +32,22 @@ export const SearchContext = createContext<ContextType>({filterValue: '', setFil
 
 export const Home: FC = () => {
 
+    const navigate = useNavigate()
+
+    const sortValue:any = useSelector<RootState>(state => state.filter.sortValue)
     const category = useSelector<RootState>(state => state.filter.category )
     const filterValue = useSelector<RootState>(state => state.filter.filterValue )
     const currentPage = useSelector<RootState>(state => state.filter.pageCount )
 
     let [pizzas, setPizzas] = useState<Array<PizzaType>>([])
     let [isLoading, setIsLoading] = useState<boolean>(true)
-    const [sortValue, setSortValue] = useState<number>(0)
+
 
     const sortResponseValues = ['rating', 'price', 'title']
     const categotiesTitleValues = ['Все', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые']
     const sortResponseValue = sortResponseValues[sortValue]
     const respCategory = category ? `&category=${category}` : ''
     const respFilter = filterValue ? `&search=${filterValue}` : ''
-
 
     useEffect(() => {
         setIsLoading(true)
@@ -57,16 +60,14 @@ export const Home: FC = () => {
         })
     }, [category, sortResponseValue, filterValue, currentPage])
 
+
     let skeletonArr = [...new Array(8)]
 
     return (
         <>
             <div className="content__top">
                 <Categories/>
-                <Sort
-                    sortValue={sortValue}
-                    setSortValue={setSortValue}
-                />
+                <Sort/>
             </div>
             <Search/>
             <h2 className="content__title">{categotiesTitleValues[Number(category)]} пиццы</h2>

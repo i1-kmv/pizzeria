@@ -1,25 +1,39 @@
-import React, {FC, useState} from "react"
-
-type SortPropsType = {
-    sortValue: number
-    setSortValue: (val: number) => void
-}
+import React, {FC, useEffect, useRef, useState} from "react"
+import {useDispatch, useSelector} from "react-redux"
+import {RootState} from "../redux/store"
+import {setSortValue} from "../redux/slices/filterSlice"
 
 
-export const Sort:FC<SortPropsType> = ({sortValue, setSortValue}) => {
+export const Sort:FC = () => {
 
+    const dispatch = useDispatch()
+
+    const sortValue: any = useSelector<RootState>(state => state.filter.sortValue)
+    const sortRef:any = useRef()
     const sortValues = ['популярности', 'цене', 'алфавиту']
 
     const [isPopupVisible, setIsPopupVisible] = useState<boolean>(false)
 
 
     const onSortElemClickHandler = (el:number) => {
-        setSortValue(el)
+        dispatch(setSortValue(el))
         setIsPopupVisible(false)
     }
 
+    useEffect(() => {
+        const handleClickOutside = (event:any ) => {
+            if (!event.path.includes(sortRef.current)) {
+                setIsPopupVisible(false)
+            }
+        }
+        document.body.addEventListener('click', handleClickOutside)
+        return () => {
+            document.removeEventListener('click', handleClickOutside)
+        }
+    },[])
+
     return (
-        <div className="sort">
+        <div className="sort" ref={sortRef}>
             <div className="sort__label">
                 <svg
                     width="10"
