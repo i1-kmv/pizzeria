@@ -7,6 +7,7 @@ import {CartItem} from "../components/Cart-item";
 import {useDispatch, useSelector} from "react-redux";
 import {CartItemType, clearItems} from "../redux/slices/cartSlice";
 import {RootState} from "../redux/store";
+import {CartEmpty} from "../components/CartEmpty";
 
 
 export const Cart: FC = () => {
@@ -26,7 +27,7 @@ export const Cart: FC = () => {
 
     return (
         <div className="content">
-            <div className="container container--cart">
+            { items.length ? <div className="container container--cart">
                 <div className="cart">
                     <div className="cart__top">
                         <h2 className="content__title">
@@ -69,7 +70,7 @@ export const Cart: FC = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> :  <CartEmpty/>}
         </div>
     )
 }
