@@ -22,17 +22,9 @@ export type PizzaType = {
     rating: number
 }
 
-type ContextType = {
-    filterValue: string
-    setFilterValue: React.Dispatch<React.SetStateAction<string>>
-}
-
-export const SearchContext = createContext<ContextType>({filterValue: '', setFilterValue: () => {}})
-
 
 export const Home: FC = () => {
 
-    const navigate = useNavigate()
 
     const sortValue:any = useSelector<RootState>(state => state.filter.sortValue)
     const category = useSelector<RootState>(state => state.filter.category )
@@ -76,12 +68,8 @@ export const Home: FC = () => {
                     pizzas.map((el, index) => {
                         return (
                             <PizzaBlock
-                                key={el.id}
-                                title={el.name}
-                                price={el.price}
-                                imageUrl={el.imageUrl}
-                                sizes={el.sizes}
-                                types={el.types}
+                                el={el}
+                                key={index}
                             />
                         )
                     })}

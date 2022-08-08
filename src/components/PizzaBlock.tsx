@@ -1,50 +1,52 @@
 import React, {FC, useState} from "react"
+import {useDispatch} from "react-redux"
+import {addItem, CartItemType} from "../redux/slices/cartSlice"
+import {PizzaType} from "../pages/Home"
 
 type PizzaBlockPropsType = {
-    title: string
-    price: number
-    imageUrl: string
-    sizes: Array<number>
-    types: Array<number>
+    el:PizzaType
 }
 
 
-export const PizzaBlock: FC<PizzaBlockPropsType> = ({title, price, imageUrl, sizes, types}) => {
+export const PizzaBlock: FC<PizzaBlockPropsType> = ({el}) => {
+
+    const dispatch = useDispatch()
 
     const [pizzaCount, setPizzaCount] = useState<number>(0)
     const [activeSize, setActiveSize] = useState<number>(0)
     const [activeType, setActiveType] = useState<number>(0)
     const typesName = ['Тонкое', 'Традиционное']
 
-    const setPizzaCountHandler = () => {
+    const setPizzaCountHandler = (id: string, title: string, price: number, imageUrl: string, activeType: number, activeSize: number) => {
         setPizzaCount(pizzaCount + 1)
+        dispatch(addItem({id, title, price, imageUrl, type: activeType, size: activeSize}))
     }
 
     return (
         <div className="pizza-block">
             <img
                 className="pizza-block__image"
-                src={imageUrl}
+                src={el.imageUrl}
                 alt="Pizza"
             />
-            <h4 className="pizza-block__title">{title}</h4>
+            <h4 className="pizza-block__title">{el.name}</h4>
             <div className="pizza-block__selector">
                 <ul>
-                    {typesName.map((el, i) => {
+                    {typesName.map((elem, i) => {
                         return (
-                            i < types.length &&
+                            i < el.types.length &&
                             <li
                                 key={`${el} + ${i}`}
                                 className={activeType === i ? "active" : ''}
                                 onClick={() => setActiveType(i)}
                             >
-                                {el}
+                                {elem}
                             </li>
                         )
                     })}
                 </ul>
                 <ul>
-                    {sizes.map((el, i) => {
+                    {el.sizes.map((el, i) => {
                         return (
                             <li
                                 key={`${el}+${i}`}
@@ -58,10 +60,10 @@ export const PizzaBlock: FC<PizzaBlockPropsType> = ({title, price, imageUrl, siz
                 </ul>
             </div>
             <div className="pizza-block__bottom">
-                <div className="pizza-block__price">от {price} ₽</div>
+                <div className="pizza-block__price">от {el.price} ₽</div>
                 <div
                     className="button button--outline button--add"
-                    onClick={setPizzaCountHandler}
+                    onClick={() => setPizzaCountHandler(el.id, el.name, el.price, el.imageUrl, el.types[activeType], el.sizes[activeSize])}
                 >
                     <svg
                         width="12"
