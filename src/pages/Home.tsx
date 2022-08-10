@@ -7,7 +7,9 @@ import {Search} from "../components/Search"
 import {Pagination} from "../components/Pagination"
 import {useDispatch, useSelector} from "react-redux"
 import {RootState} from "../redux/store"
-import {fetchPizzas, setItems} from "../redux/slices/pizzasSlice";
+import {fetchPizzas, itemsSelector, setItems, statusSelector} from "../redux/slices/pizzasSlice";
+import {categorySelector, filterValueSelector, pageCountSelector, sortValueSelector} from "../redux/slices/filterSlice";
+import {cartItemsSelector} from "../redux/slices/cartSlice";
 
 
 export type PizzaType = {
@@ -26,12 +28,12 @@ export const Home: FC = () => {
 
     const dispatch = useDispatch()
 
-    const sortValue:any = useSelector<RootState>(state => state.filter.sortValue)
-    const category = useSelector<RootState>(state => state.filter.category )
-    const filterValue = useSelector<RootState>(state => state.filter.filterValue )
-    const currentPage = useSelector<RootState>(state => state.filter.pageCount )
-    const pizzas: any = useSelector<RootState>(state => state.pizzas.items)
-    const status: any = useSelector<RootState>(state => state.pizzas.status)
+    const sortValue:any = useSelector<RootState>(sortValueSelector)
+    const category = useSelector<RootState>(categorySelector )
+    const filterValue = useSelector<RootState>(filterValueSelector )
+    const currentPage = useSelector<RootState>(pageCountSelector )
+    const pizzas: any = useSelector<RootState>(itemsSelector)
+    const status: any = useSelector<RootState>(statusSelector)
 
 
     const sortResponseValues = ['rating', 'price', 'title']
@@ -67,9 +69,7 @@ export const Home: FC = () => {
                         )
                     })}
             </div>
-
-            <Pagination/> : null
-
+            <Pagination/>
         </>
     )
 }

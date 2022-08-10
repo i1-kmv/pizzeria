@@ -5,7 +5,7 @@ import trash from '../assets/img/trash.svg'
 import {Link} from "react-router-dom";
 import {CartItem} from "../components/Cart-item";
 import {useDispatch, useSelector} from "react-redux";
-import {CartItemType, clearItems} from "../redux/slices/cartSlice";
+import {cartItemsSelector, CartItemType, clearItems, totalPriceSeletor} from "../redux/slices/cartSlice";
 import {RootState} from "../redux/store";
 import {CartEmpty} from "../components/CartEmpty";
 
@@ -14,8 +14,8 @@ export const Cart: FC = () => {
 
     const dispatch = useDispatch()
 
-    let items: any = useSelector<RootState>(state => state.cart.items)
-    const totalPrice:any = useSelector<RootState>(state => state.cart.totalPrice)
+    let items: any = useSelector<RootState>(cartItemsSelector)
+    const totalPrice:any = useSelector<RootState>(totalPriceSeletor)
 
     const itemsCount = items.reduce((sum: number, obj: CartItemType) => {
         return sum + obj.count

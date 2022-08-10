@@ -15,12 +15,12 @@ export type CartItemType = {
 
 interface CartState {
     totalPrice:number,
-    items: Array<CartItemType>
+    cartItems: Array<CartItemType>
 }
 
 const initialState: CartState = {
     totalPrice: 0,
-    items: [],
+    cartItems: [],
 }
 
 export const cartSlice = createSlice({
@@ -28,50 +28,50 @@ export const cartSlice = createSlice({
     initialState,
     reducers: {
         addItem: (state, action: PayloadAction<any>) => {
-            const findItem = state.items.find(obj => obj.id === action.payload.id && obj.type === action.payload.type
+            const findItem = state.cartItems.find(obj => obj.id === action.payload.id && obj.type === action.payload.type
                 && obj.size === action.payload.size)
 
             if (findItem) {
                 findItem.count ++
             } else {
-                state.items.push({...action.payload, count: 1})
+                state.cartItems.push({...action.payload, count: 1})
             }
-            state.totalPrice = state.items.reduce((sum, obj) => {
+            state.totalPrice = state.cartItems.reduce((sum, obj) => {
                 return obj.price * obj.count + Number(sum)
             }, 0)
         },
         removeItem: (state, action: PayloadAction<{id:string, type:number, size: number}>) => {
-            const findItem = state.items.find(obj => obj.id === action.payload.id && obj.type === action.payload.type && obj.size === action.payload.size)
-            state.items = state.items.filter( i => i !== findItem)
-            state.totalPrice = state.items.reduce((sum, obj) => {
+            const findItem = state.cartItems.find(obj => obj.id === action.payload.id && obj.type === action.payload.type && obj.size === action.payload.size)
+            state.cartItems = state.cartItems.filter( i => i !== findItem)
+            state.totalPrice = state.cartItems.reduce((sum, obj) => {
                 return obj.price * obj.count + Number(sum)
             }, 0)
         },
         clearItems: (state) => {
-            state.items = []
+            state.cartItems = []
             state.totalPrice = 0
         },
         plusCount: (state, action: PayloadAction<{id:string, type:number, size: number}>) => {
-            let item = state.items.find(obj => obj.id === action.payload.id && obj.type === action.payload.type
+            let item = state.cartItems.find(obj => obj.id === action.payload.id && obj.type === action.payload.type
                 && obj.size === action.payload.size)
 
             if (item) {
                 item.count += 1
             }
 
-            state.totalPrice = state.items.reduce((sum, obj) => {
+            state.totalPrice = state.cartItems.reduce((sum, obj) => {
                 return obj.price * obj.count + Number(sum)
             }, 0)
         },
         minusCount: (state, action: PayloadAction<{id:string, type:number, size: number}>) => {
-            let item = state.items.find(obj => obj.id === action.payload.id && obj.type === action.payload.type
+            let item = state.cartItems.find(obj => obj.id === action.payload.id && obj.type === action.payload.type
                 && obj.size === action.payload.size)
 
             if (item) {
                 item.count -= 1
             }
 
-            state.totalPrice = state.items.reduce((sum, obj) => {
+            state.totalPrice = state.cartItems.reduce((sum, obj) => {
                 return obj.price * obj.count + Number(sum)
             }, 0)
         },
@@ -80,7 +80,7 @@ export const cartSlice = createSlice({
 
 export const { addItem, removeItem, clearItems, plusCount, minusCount } = cartSlice.actions
 
-export const totalPrice = (state: RootState) => state.cart.totalPrice
-export const items = (state: RootState) => state.cart.items
+export const totalPriceSeletor = (state: RootState) => state.cart.totalPrice
+export const cartItemsSelector = (state: RootState) => state.cart.cartItems
 
 export default cartSlice.reducer

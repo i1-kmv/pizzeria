@@ -3,12 +3,12 @@ import logo from "../assets/img/pizza-logo.svg"
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {RootState} from "../redux/store";
-import {CartItemType} from "../redux/slices/cartSlice";
+import {cartItemsSelector, CartItemType} from "../redux/slices/cartSlice";
 
 export const Header:FC = () => {
 
     const totalPrice:any = useSelector<RootState>(state => state.cart.totalPrice)
-    const items:any = useSelector<RootState>(state => state.cart.items)
+    const items:any = useSelector<RootState>(cartItemsSelector)
 
     const itemsCount = items.reduce((sum: number, obj: CartItemType) => {
         return sum + obj.count

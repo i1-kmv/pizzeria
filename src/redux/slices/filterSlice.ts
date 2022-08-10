@@ -38,7 +38,9 @@ export const filterSlice = createSlice({
 
 export const { setCategory, setSearchValue, setCurrentPage, setSortValue } = filterSlice.actions
 
-export const category = (state: RootState) => state.filter.category
-export const filterValue = (state: RootState) => state.filter.filterValue
+export const categorySelector = (state: RootState) => state.filter.category
+export const filterValueSelector = (state: RootState) => state.filter.filterValue
+export const pageCountSelector = (state: RootState) => state.filter.pageCount
+export const sortValueSelector = (state: RootState) => state.filter.pageCount
 
 export default filterSlice.reducer

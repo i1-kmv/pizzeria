@@ -1,14 +1,14 @@
 import React, {FC, useEffect, useRef, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {RootState} from "../redux/store"
-import {setSortValue} from "../redux/slices/filterSlice"
+import {setSortValue, sortValueSelector} from "../redux/slices/filterSlice"
 
 
 export const Sort:FC = () => {
 
     const dispatch = useDispatch()
 
-    const sortValue: any = useSelector<RootState>(state => state.filter.sortValue)
+    const sortValue: any = useSelector<RootState>(sortValueSelector)
     const sortRef:any = useRef()
     const sortValues = ['популярности', 'цене', 'алфавиту']
 
