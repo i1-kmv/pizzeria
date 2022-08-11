@@ -1,14 +1,16 @@
 import React, {FC} from "react"
 import logo from "../assets/img/pizza-logo.svg"
-import {Link} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {RootState} from "../redux/store";
-import {cartItemsSelector, CartItemType} from "../redux/slices/cartSlice";
+import {Link, useLocation} from "react-router-dom"
+import {useSelector} from "react-redux"
+import {RootState} from "../redux/store"
+import {cartItemsSelector, CartItemType} from "../redux/slices/cartSlice"
 
 export const Header:FC = () => {
 
     const totalPrice:any = useSelector<RootState>(state => state.cart.totalPrice)
     const items:any = useSelector<RootState>(cartItemsSelector)
+
+    const location = useLocation()
 
     const itemsCount = items.reduce((sum: number, obj: CartItemType) => {
         return sum + obj.count
@@ -28,7 +30,7 @@ export const Header:FC = () => {
                     </div>
                 </Link>
                 <div className="header__cart">
-                    <Link to="/cart" className="button button--cart">
+                    {location.pathname !== '/cart' && <Link to="/cart" className="button button--cart">
                         <span>{totalPrice} ₽</span>
                         <div className="button__delimiter"></div>
                         <svg
@@ -61,7 +63,7 @@ export const Header:FC = () => {
                             />
                         </svg>
                         <span>{itemsCount}</span>
-                    </Link>
+                    </Link> }
                 </div>
             </div>
         </div>

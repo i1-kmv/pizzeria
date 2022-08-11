@@ -31,6 +31,7 @@ export const filterSlice = createSlice({
             state.pageCount = action.payload + 1
         },
         setSortValue: (state, action: PayloadAction<number>) => {
+            console.log(action.payload)
             state.sortValue = action.payload
         }
     },
@@ -41,6 +42,6 @@ export const { setCategory, setSearchValue, setCurrentPage, setSortValue } = fil
 export const categorySelector = (state: RootState) => state.filter.category
 export const filterValueSelector = (state: RootState) => state.filter.filterValue
 export const pageCountSelector = (state: RootState) => state.filter.pageCount
-export const sortValueSelector = (state: RootState) => state.filter.pageCount
+export const sortValueSelector = (state: RootState) => state.filter.sortValue
 
 export default filterSlice.reducer

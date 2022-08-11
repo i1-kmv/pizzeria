@@ -2,6 +2,7 @@ import React, {FC, useState} from "react"
 import {useDispatch} from "react-redux"
 import {addItem, CartItemType} from "../redux/slices/cartSlice"
 import {PizzaType} from "../pages/Home"
+import {Link} from "react-router-dom";
 
 type PizzaBlockPropsType = {
     el:PizzaType
@@ -9,6 +10,8 @@ type PizzaBlockPropsType = {
 
 
 export const PizzaBlock: FC<PizzaBlockPropsType> = ({el}) => {
+
+    console.log(el)
 
     const dispatch = useDispatch()
 
@@ -22,14 +25,20 @@ export const PizzaBlock: FC<PizzaBlockPropsType> = ({el}) => {
         dispatch(addItem({id, title, price, imageUrl, type: activeType, size: activeSize}))
     }
 
+    if (!el) {
+        return <div className="container">Loading...</div>
+    }
+
     return (
         <div className="pizza-block">
-            <img
-                className="pizza-block__image"
-                src={el.imageUrl}
-                alt="Pizza"
-            />
-            <h4 className="pizza-block__title">{el.name}</h4>
+           <Link to={`/pizza/${el.id}`}>
+               <img
+                   className="pizza-block__image"
+                   src={el.imageUrl}
+                   alt="Pizza"
+               />
+               <h4 className="pizza-block__title">{el.name}</h4>
+           </Link>
             <div className="pizza-block__selector">
                 <ul>
                     {typesName.map((elem, i) => {

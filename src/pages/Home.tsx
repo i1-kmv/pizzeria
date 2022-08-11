@@ -2,14 +2,13 @@ import {Categories} from "../components/Categories"
 import {Sort} from "../components/Sort"
 import MyLoader from "../components/MyLoader"
 import {PizzaBlock} from "../components/PizzaBlock"
-import React, {FC, useEffect, useState} from "react"
+import React, {FC, useEffect} from "react"
 import {Search} from "../components/Search"
 import {Pagination} from "../components/Pagination"
 import {useDispatch, useSelector} from "react-redux"
 import {RootState} from "../redux/store"
 import {fetchPizzas, itemsSelector, setItems, statusSelector} from "../redux/slices/pizzasSlice";
 import {categorySelector, filterValueSelector, pageCountSelector, sortValueSelector} from "../redux/slices/filterSlice";
-import {cartItemsSelector} from "../redux/slices/cartSlice";
 
 
 export type PizzaType = {
