@@ -2,13 +2,12 @@ import React, {FC} from "react"
 import logo from "../assets/img/pizza-logo.svg"
 import {Link, useLocation} from "react-router-dom"
 import {useSelector} from "react-redux"
-import {RootState} from "../redux/store"
-import {cartItemsSelector, CartItemType} from "../redux/slices/cartSlice"
+import {cartItemsSelector, CartItemType, totalPriceSeletor} from "../redux/slices/cartSlice"
 
 export const Header:FC = () => {
 
-    const totalPrice:any = useSelector<RootState>(state => state.cart.totalPrice)
-    const items:any = useSelector<RootState>(cartItemsSelector)
+    const totalPrice = useSelector(totalPriceSeletor)
+    const items = useSelector(cartItemsSelector)
 
     const location = useLocation()
 

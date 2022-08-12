@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux"
 export const Categories: FC = () => {
 
     const dispatch = useDispatch()
-    const category = useSelector<RootState>(categorySelector)
+    const category = useSelector(categorySelector)
 
     const categoties = ['Все', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые']
 

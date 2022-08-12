@@ -14,8 +14,8 @@ export const Cart: FC = () => {
 
     const dispatch = useDispatch()
 
-    let items: any = useSelector<RootState>(cartItemsSelector)
-    const totalPrice:any = useSelector<RootState>(totalPriceSeletor)
+    let items = useSelector(cartItemsSelector)
+    const totalPrice = useSelector(totalPriceSeletor)
 
     const itemsCount = items.reduce((sum: number, obj: CartItemType) => {
         return sum + obj.count

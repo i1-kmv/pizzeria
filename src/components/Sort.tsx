@@ -8,7 +8,7 @@ export const Sort:FC = () => {
 
     const dispatch = useDispatch()
 
-    const sortValue: any = useSelector<RootState>(sortValueSelector)
+    const sortValue = useSelector(sortValueSelector)
     const sortRef:any = useRef()
     const sortValues = ['популярности', 'цене', 'алфавиту']
 

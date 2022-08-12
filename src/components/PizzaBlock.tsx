@@ -1,8 +1,8 @@
 import React, {FC, useState} from "react"
 import {useDispatch} from "react-redux"
-import {addItem, CartItemType} from "../redux/slices/cartSlice"
+import {addItem} from "../redux/slices/cartSlice"
 import {PizzaType} from "../pages/Home"
-import {Link} from "react-router-dom";
+import {Link} from "react-router-dom"
 
 type PizzaBlockPropsType = {
     el:PizzaType
@@ -10,8 +10,6 @@ type PizzaBlockPropsType = {
 
 
 export const PizzaBlock: FC<PizzaBlockPropsType> = ({el}) => {
-
-    console.log(el)
 
     const dispatch = useDispatch()
 

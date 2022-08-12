@@ -27,12 +27,12 @@ export const Home: FC = () => {
 
     const dispatch = useDispatch()
 
-    const sortValue:any = useSelector<RootState>(sortValueSelector)
-    const category = useSelector<RootState>(categorySelector )
-    const filterValue = useSelector<RootState>(filterValueSelector )
-    const currentPage = useSelector<RootState>(pageCountSelector )
-    const pizzas: any = useSelector<RootState>(itemsSelector)
-    const status: any = useSelector<RootState>(statusSelector)
+    const sortValue = useSelector(sortValueSelector)
+    const category = useSelector(categorySelector )
+    const filterValue = useSelector(filterValueSelector )
+    const currentPage = useSelector(pageCountSelector )
+    const pizzas = useSelector(itemsSelector)
+    const status = useSelector(statusSelector)
 
 
     const sortResponseValues = ['rating', 'price', 'title']
