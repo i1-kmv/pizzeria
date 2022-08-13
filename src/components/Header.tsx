@@ -1,4 +1,4 @@
-import React, {FC} from "react"
+import React, {FC, useEffect} from "react"
 import logo from "../assets/img/pizza-logo.svg"
 import {Link, useLocation} from "react-router-dom"
 import {useSelector} from "react-redux"
@@ -15,6 +15,16 @@ export const Header:FC = () => {
         return sum + obj.count
     }, 0)
 
+    useEffect(() => {
+       if (items.length) {
+           const itemsJson = JSON.stringify(items)
+           localStorage.setItem('items', itemsJson)
+       }
+        if (totalPrice !== 0) {
+            const totalPriceJson = JSON.stringify(totalPrice)
+            localStorage.setItem('totalPrice', totalPriceJson)
+        }
+    },[items, totalPrice])
 
     return (
         <div className="header">

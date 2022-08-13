@@ -2,12 +2,11 @@ import React, {FC} from "react"
 import cart from '../assets/img/cart.svg'
 import arrow from '../assets/img/grey-arrow-left.svg'
 import trash from '../assets/img/trash.svg'
-import {Link} from "react-router-dom";
-import {CartItem} from "../components/Cart-item";
-import {useDispatch, useSelector} from "react-redux";
-import {cartItemsSelector, CartItemType, clearItems, totalPriceSeletor} from "../redux/slices/cartSlice";
-import {RootState} from "../redux/store";
-import {CartEmpty} from "../components/CartEmpty";
+import {Link} from "react-router-dom"
+import {CartItem} from "../components/Cart-item"
+import {useDispatch, useSelector} from "react-redux"
+import {cartItemsSelector, CartItemType, clearItems, totalPriceSeletor} from "../redux/slices/cartSlice"
+import {CartEmpty} from "../components/CartEmpty"
 
 
 export const Cart: FC = () => {
@@ -20,6 +19,8 @@ export const Cart: FC = () => {
     const itemsCount = items.reduce((sum: number, obj: CartItemType) => {
         return sum + obj.count
     }, 0)
+
+    console.log(items)
 
     const clearCartHandler = () => {
         dispatch(clearItems())

@@ -361,6 +361,13 @@ body {
   }
 }
 
+.disabled {
+  opacity: 0.4;
+  &:hover {
+    background-color: transparent;
+  }
+}
+
 @media (max-width: 1200px) {
   .content {
     &__top {

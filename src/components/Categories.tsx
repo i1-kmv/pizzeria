@@ -1,5 +1,4 @@
 import React, {FC} from "react"
-import {RootState} from "../redux/store"
 import {categorySelector, setCategory} from "../redux/slices/filterSlice"
 import {useDispatch, useSelector} from "react-redux"
 

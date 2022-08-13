@@ -47,7 +47,7 @@ export const CartItem:FC<CartItemPropsType> = ({id,name, type, size, price,count
             </div>
             <div className="cart__item-count">
                 <div
-                    className="button button--outline button--circle cart__item-count-minus"
+                    className={`button button--outline button--circle cart__item-count-minus ${count === 1 && 'disabled'}`}
                     onClick={() => onMinusClickHandler(id, type,size)}
                 >
                     <img src={plus}/>
